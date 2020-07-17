@@ -1,0 +1,20 @@
+{
+  "APP_NAME": "OZiTAG_ADMIN_BLOG",
+  "TITLE_TEMPLATE": "OZiTAG Admin - Blog",
+  "LANGUAGE": "EN",
+  "BRAND": {
+    "small": {
+      "logo": "logo-small.svg"
+    },
+    "large": {
+      "logo": "logo.svg",
+      "label": "OZiTAG",
+      "label-color": "#DD6900"
+    }
+  },
+  "SPLASH_SCREEN": {
+    "enabled": false,
+    "logo": "logo-white.svg",
+    "background": "#1e1e1e"
+  }
+}
