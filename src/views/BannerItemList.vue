@@ -2,7 +2,7 @@
   <page
     title="Banner Items"
     :header-buttons="[
-      { text: 'New Banner Item', href: getBannerItemUrl('create') },
+      { text: 'New Banner Item', href: getLinkToBannerItemForm('create') },
     ]"
   >
     <template v-slot:content>
@@ -56,20 +56,21 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ColumnDefinition, LinkCellValue } from '@tager/admin-ui';
+import { ColumnDefinition } from '@tager/admin-ui';
 import { compile } from 'path-to-regexp';
 import { getMessageFromError, Nullable } from '@tager/admin-services';
-import { BANNER_ROUTE_PATHS } from '..';
-import { BannerItem } from '../typings/model';
+import { BannerArea, BannerItem } from '../typings/model';
 import {
   deleteBannerItem,
   getBannerAreaByAlias,
   getBannerItemList,
   moveBannerItem,
 } from '../services/requests';
+import { BANNER_ROUTE_PATHS } from '../constants/paths';
 
-function getBannerItemUrl(itemId: string | number): string {
+function getBannerItemUrl(itemId: string | number, areaAlias: string): string {
   return compile(BANNER_ROUTE_PATHS.ITEM_FORM)({
+    areaAlias,
     itemId,
   });
 }
@@ -86,12 +87,6 @@ const COLUMN_DEFS: Array<ColumnDefinition<BannerItem>> = [
     id: 2,
     name: 'Title',
     field: 'title',
-    type: 'link',
-    shouldUseRouter: true,
-    format: ({ row }): LinkCellValue => ({
-      href: getBannerItemUrl(row.id),
-      label: row.title,
-    }),
   },
   { id: 3, name: 'Text', field: 'text' },
   {
@@ -122,8 +117,10 @@ export default Vue.extend({
     isBannerItemMoving: boolean;
     isRowDataLoading: boolean;
     errorMessage: Nullable<string>;
+    bannerArea: Nullable<BannerArea>;
   } {
     return {
+      bannerArea: null,
       columnDefs: COLUMN_DEFS,
       rowData: [],
       deletingBannerItemIdList: [],
@@ -141,12 +138,12 @@ export default Vue.extend({
     this.refreshBannerItemList();
   },
   methods: {
-    getBannerItemUrl,
     refreshBannerItemList(): Promise<void> {
       this.isRowDataLoading = true;
       return getBannerAreaByAlias(this.areaAlias)
         .then((response) => {
-          return getBannerItemList(response.data.id);
+          this.bannerArea = response.data;
+          return getBannerItemList(this.bannerArea.id);
         })
         .then((response) => {
           this.rowData = response.data;
@@ -213,8 +210,11 @@ export default Vue.extend({
           });
       }
     },
-    getLinkToBannerItemForm(bannerItemId: number) {
-      return this.getBannerItemUrl(bannerItemId);
+    getLinkToBannerItemForm(bannerItemId: number | string) {
+      return getBannerItemUrl(
+        bannerItemId,
+        this.bannerArea?.alias ?? 'unknowm'
+      );
     },
   },
 });

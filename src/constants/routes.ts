@@ -3,8 +3,7 @@ import { CustomRoute, CustomRouteConfig } from '@tager/admin-layout';
 import BannerAreaList from '../views/BannerAreaList.vue';
 import BannerAreaForm from '../views/BannerAreaForm.vue';
 import BannerItemList from '../views/BannerItemList.vue';
-// import BlogCategoryList from '../views/BlogCategoryList/index.vue';
-// import BlogCategoryForm from '../views/BlogCategoryForm/index.vue';
+import BannerItemForm from '../views/BannerItemForm.vue';
 
 import { BANNER_ROUTE_PATHS } from './paths';
 
@@ -50,18 +49,14 @@ export const BANNER_ITEM_LIST_ROUTE: CustomRouteConfig = {
   },
 };
 
-// export const BANNER_ITEM_FORM_ROUTE: CustomRouteConfig = {
-//   path: BANNER_ROUTE_PATHS.ITEM_FORM,
-//   component: BlogCategoryForm,
-//   name: 'Banner Item Form',
-//   meta: {
-//     getBreadcrumbs: (route) => [
-//       HOME_BREADCRUMB,
-//       {
-//         path: BANNER_ROUTE_PATHS.ITEM_LIST,
-//         label: BANNER_ITEM_LIST_ROUTE.name,
-//       },
-//       { path: route.path, label: route.name },
-//     ],
-//   },
-// };
+export const BANNER_ITEM_FORM_ROUTE: CustomRouteConfig = {
+  path: BANNER_ROUTE_PATHS.ITEM_FORM,
+  component: BannerItemForm,
+  name: 'Banner Item Form',
+  meta: {
+    getBreadcrumbs: (route) => [
+      HOME_BREADCRUMB,
+      { path: route.path, label: route.name },
+    ],
+  },
+};

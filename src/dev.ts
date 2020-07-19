@@ -13,7 +13,7 @@ import '@tager/admin-ui/dist/admin-ui.css';
 import {
   BANNER_AREA_FORM_ROUTE,
   BANNER_AREA_LIST_ROUTE,
-  // BANNER_ITEM_FORM_ROUTE,
+  BANNER_ITEM_FORM_ROUTE,
   BANNER_ITEM_LIST_ROUTE,
 } from './constants/routes';
 import config from './config/config.json';
@@ -30,7 +30,7 @@ const router = createRouter(
       BANNER_AREA_LIST_ROUTE,
       BANNER_AREA_FORM_ROUTE,
       BANNER_ITEM_LIST_ROUTE,
-      // BANNER_ITEM_FORM_ROUTE,
+      BANNER_ITEM_FORM_ROUTE,
     ],
   },
   { useTitleSync: false }

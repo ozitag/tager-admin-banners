@@ -14,7 +14,7 @@
       >
         <template v-slot:cell(link-to-banner-items)="{ row }">
           <base-button
-            :href="getLinkToBannerItems(row.id)"
+            :href="getLinkToBannerItems(row.alias)"
             variant="outline-secondary"
           >
             Banner Items
@@ -178,8 +178,8 @@ export default Vue.extend({
           });
         });
     },
-    getLinkToBannerItems(areaId: string) {
-      return getBannerItemsUrl(areaId);
+    getLinkToBannerItems(areaAlias: string) {
+      return getBannerItemsUrl(areaAlias);
     },
   },
 });
