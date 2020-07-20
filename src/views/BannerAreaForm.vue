@@ -42,7 +42,7 @@ import {
   updateBannerArea,
 } from '../services/requests';
 import { BannerArea } from '../typings/model';
-import { BANNER_ROUTE_PATHS, getBannerAreaListUrl } from '..';
+import { getBannerAreaListUrl } from '../constants/paths';
 
 type FormValues = {
   alias: string;
@@ -123,7 +123,7 @@ export default Vue.extend({
       requestPromise
         .then(() => {
           this.errors = {};
-          this.$router.push(BANNER_ROUTE_PATHS.AREA_LIST);
+          this.$router.push(getBannerAreaListUrl());
 
           this.$toast({
             variant: 'success',
