@@ -2,7 +2,7 @@
   <page
     :title="isCreation ? 'Create Banner Item' : 'Update Banner Item'"
     :is-content-loading="isContentLoading"
-    :footer="{ onSubmit: submitForm }"
+    :footer="{ onSubmit: submitForm, backHref: bannerItemListUrl }"
   >
     <template v-slot:content>
       <form novalidate @submit.prevent>
@@ -13,13 +13,11 @@
           :error="errors.title"
         />
 
-        <form-field
+        <form-field-rich-text-input
           v-model="values.text"
           name="text"
           label="Text"
-          type="textarea"
           :error="errors.text"
-          rows="4"
         />
 
         <form-field-file-input
@@ -70,14 +68,7 @@ import {
   updateBannerItem,
 } from '../services/requests';
 import { BannerArea, BannerItem } from '../typings/model';
-import { compile } from 'path-to-regexp';
-import { BANNER_ROUTE_PATHS } from '..';
-
-function getBannerItemListUrl(areaAlias: string | number): string {
-  return compile(BANNER_ROUTE_PATHS.ITEM_LIST)({
-    areaAlias,
-  });
-}
+import { getBannerItemListUrl } from '../constants/paths';
 
 type FormValues = {
   title: string;
@@ -121,6 +112,11 @@ export default Vue.extend({
     },
     isCreation(): boolean {
       return this.itemId === 'create';
+    },
+    bannerItemListUrl(): string {
+      return getBannerItemListUrl({
+        areaAlias: this.bannerArea?.alias ?? 'unknown',
+      });
     },
   },
   watch: {
@@ -185,9 +181,7 @@ export default Vue.extend({
       requestPromise
         .then(() => {
           this.errors = {};
-          this.$router.push(
-            getBannerItemListUrl(this.bannerArea?.alias ?? 'unknown')
-          );
+          this.$router.push(this.bannerItemListUrl);
 
           this.$toast({
             variant: 'success',

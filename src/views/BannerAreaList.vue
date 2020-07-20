@@ -46,25 +46,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { compile } from 'path-to-regexp';
 import { ColumnDefinition } from '@tager/admin-ui';
 import { getMessageFromError, Nullable } from '@tager/admin-services';
 
 import { BannerArea } from '../typings/model';
 import { deleteBannerArea, getBannerAreaList } from '../services/requests';
-import { BANNER_ROUTE_PATHS } from '../constants/paths';
-
-function getBannerAreaUrl(areaId: string | number): string {
-  return compile(BANNER_ROUTE_PATHS.AREA_FORM)({
-    areaId,
-  });
-}
-
-function getBannerItemsUrl(areaAlias: string | number): string {
-  return compile(BANNER_ROUTE_PATHS.ITEM_LIST)({
-    areaAlias,
-  });
-}
+import { getBannerAreaFormUrl, getBannerItemListUrl } from '../constants/paths';
 
 const COLUMN_DEFS: Array<ColumnDefinition<BannerArea>> = [
   {
@@ -110,18 +97,13 @@ export default Vue.extend({
       errorMessage: null,
     };
   },
-  computed: {
-    areaId(): string {
-      return Array.isArray(this.$route.query.areaId)
-        ? ''
-        : this.$route.query.areaId;
-    },
-  },
   mounted(): void {
     this.refreshBannerAreaList();
   },
   methods: {
-    getBannerAreaUrl,
+    getBannerAreaUrl(areaId: number | string): string {
+      return getBannerAreaFormUrl({ areaId });
+    },
     refreshBannerAreaList(): Promise<void> {
       this.isRowDataLoading = true;
 
@@ -179,7 +161,7 @@ export default Vue.extend({
         });
     },
     getLinkToBannerItems(areaAlias: string) {
-      return getBannerItemsUrl(areaAlias);
+      return getBannerItemListUrl({ areaAlias });
     },
   },
 });

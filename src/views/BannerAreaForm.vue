@@ -2,7 +2,7 @@
   <page
     :title="isCreation ? 'Create Banner Area' : 'Update Banner Area'"
     :is-content-loading="isContentLoading"
-    :footer="{ onSubmit: submitForm }"
+    :footer="{ onSubmit: submitForm, backHref: getAreaListUrl() }"
   >
     <template v-slot:content>
       <form novalidate @submit.prevent="submitForm">
@@ -21,7 +21,6 @@
         />
 
         <form-field
-          v-if="!isCreation"
           v-model="values.scenario"
           name="scenario"
           label="Scenario"
@@ -38,13 +37,12 @@ import { convertRequestErrorToMap } from '@tager/admin-services';
 
 import {
   BannerAreaCreatePayload,
-  BannerAreaUpdatePayload,
   createBannerArea,
   getBannerAreaById,
   updateBannerArea,
 } from '../services/requests';
 import { BannerArea } from '../typings/model';
-import { BANNER_ROUTE_PATHS } from '..';
+import { BANNER_ROUTE_PATHS, getBannerAreaListUrl } from '..';
 
 type FormValues = {
   alias: string;
@@ -78,9 +76,6 @@ export default Vue.extend({
     isCreation(): boolean {
       return this.areaId === 'create';
     },
-    pagePath(): string {
-      return window.location.origin + '/blog/';
-    },
   },
   watch: {
     areaId() {
@@ -103,7 +98,7 @@ export default Vue.extend({
         this.values = { ...initialValues };
       } else {
         this.isContentLoading = true;
-        console.log('make request');
+
         getBannerAreaById(this.areaId)
           .then((response) => {
             this.values = this.convertReviewToInitialValues(response.data);
@@ -115,19 +110,15 @@ export default Vue.extend({
       }
     },
     submitForm() {
-      const creationBody: BannerAreaCreatePayload = {
+      const body: BannerAreaCreatePayload = {
         label: this.values.label,
         alias: this.values.alias,
-      };
-
-      const updateBody: BannerAreaUpdatePayload = {
-        ...creationBody,
         scenario: this.values.scenario,
       };
 
       const requestPromise = this.isCreation
-        ? createBannerArea(creationBody)
-        : updateBannerArea(this.areaId, updateBody);
+        ? createBannerArea(body)
+        : updateBannerArea(this.areaId, body);
 
       requestPromise
         .then(() => {
@@ -154,6 +145,7 @@ export default Vue.extend({
           });
         });
     },
+    getAreaListUrl: getBannerAreaListUrl,
   },
 });
 </script>

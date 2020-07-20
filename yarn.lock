@@ -964,10 +964,10 @@
   dependencies:
     i18next "^19.5.4"
 
-"@tager/admin-ui@^0.4.18":
-  version "0.4.26"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.26.tgz#8443e7736097e517847bfee4ecbe29a32ac9b11a"
-  integrity sha512-diRQtqLaMqBKDJUpN8a4LhGDwfIoJ9mzZ/Wp1vrzM35In11vy4H3AV55AXoLf/jNyEliStVi2upu7fcCgOvaIw==
+"@tager/admin-ui@^0.4.27":
+  version "0.4.27"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.27.tgz#dbbbe7da91a93a3112d29f1f561c125e8724dc0e"
+  integrity sha512-XvwZGm2kL0S+aWOjN1/vgBqEfTB86tDzR05OvKuLlE1sQBCoZHOJOpv4PhFC9pHrGT+zrPc9H3nhmVhLqAfXmA==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"

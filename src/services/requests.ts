@@ -22,6 +22,7 @@ export function getBannerAreaByAlias(
 export type BannerAreaCreatePayload = {
   alias: string;
   label: string;
+  scenario: string;
 };
 
 export function createBannerArea(
@@ -30,9 +31,7 @@ export function createBannerArea(
   return request.post({ path: '/market-boards', body: payload });
 }
 
-export type BannerAreaUpdatePayload = BannerAreaCreatePayload & {
-  scenario: string;
-};
+export type BannerAreaUpdatePayload = BannerAreaCreatePayload;
 
 export function updateBannerArea(
   areaId: number | string,

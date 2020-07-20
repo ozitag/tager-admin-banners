@@ -1,6 +1,6 @@
 <template>
   <page
-    title="Banner Items"
+    :title="pageTitle"
     :header-buttons="[
       { text: 'New Banner Item', href: getLinkToBannerItemForm('create') },
     ]"
@@ -11,6 +11,7 @@
         :row-data="rowData"
         :loading="isRowDataLoading"
         :error-message="errorMessage"
+        enumerable
       >
         <template v-slot:cell(actions)="{ row, rowIndex }">
           <base-button
@@ -56,8 +57,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ColumnDefinition } from '@tager/admin-ui';
-import { compile } from 'path-to-regexp';
+import { ColumnDefinition, formatBoolean } from '@tager/admin-ui';
 import { getMessageFromError, Nullable } from '@tager/admin-services';
 import { BannerArea, BannerItem } from '../typings/model';
 import {
@@ -66,41 +66,31 @@ import {
   getBannerItemList,
   moveBannerItem,
 } from '../services/requests';
-import { BANNER_ROUTE_PATHS } from '../constants/paths';
-
-function getBannerItemUrl(itemId: string | number, areaAlias: string): string {
-  return compile(BANNER_ROUTE_PATHS.ITEM_FORM)({
-    areaAlias,
-    itemId,
-  });
-}
+import { getBannerItemFormUrl } from '../constants/paths';
 
 const COLUMN_DEFS: Array<ColumnDefinition<BannerItem>> = [
   {
-    id: 1,
-    name: 'ID',
-    field: 'id',
-    style: { width: '50px', textAlign: 'center' },
-    headStyle: { width: '50px', textAlign: 'center' },
-  },
-  {
     id: 2,
-    name: 'Title',
-    field: 'title',
-  },
-  { id: 3, name: 'Text', field: 'text' },
-  {
-    id: 4,
     name: 'Image',
     field: 'image.url',
     type: 'image',
   },
-
-  { id: 5, name: 'Button: Label', field: 'buttonLabel' },
-  { id: 6, name: 'Button: Link', field: 'buttonLink' },
-  { id: 7, name: 'Button: Is new tab?', field: 'buttonLink' },
   {
-    id: 9,
+    id: 1,
+    name: 'Title',
+    field: 'title',
+  },
+  { id: 3, name: 'Text', field: 'text', type: 'html' },
+  { id: 4, name: 'Button: Label', field: 'buttonLabel' },
+  { id: 5, name: 'Button: Link', field: 'buttonLink' },
+  {
+    id: 6,
+    name: 'Button: Is new tab?',
+    field: 'buttonIsNewTab',
+    format: ({ row }) => formatBoolean(row.buttonIsNewTab),
+  },
+  {
+    id: 7,
     name: 'Actions',
     field: 'actions',
     style: { whiteSpace: 'nowrap', width: '205px' },
@@ -132,6 +122,9 @@ export default Vue.extend({
   computed: {
     areaAlias(): string {
       return this.$route.params.areaAlias;
+    },
+    pageTitle(): string {
+      return this.bannerArea ? `"${this.bannerArea.label}" banners` : '';
     },
   },
   mounted(): void {
@@ -211,10 +204,10 @@ export default Vue.extend({
       }
     },
     getLinkToBannerItemForm(bannerItemId: number | string) {
-      return getBannerItemUrl(
-        bannerItemId,
-        this.bannerArea?.alias ?? 'unknowm'
-      );
+      return getBannerItemFormUrl({
+        areaAlias: this.bannerArea?.alias ?? 'unknowm',
+        itemId: bannerItemId,
+      });
     },
   },
 });

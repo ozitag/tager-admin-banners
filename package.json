@@ -1,6 +1,6 @@
 {
-  "name": "@tager/admin-blog",
-  "version": "0.1.4",
+  "name": "@tager/admin-banners",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
@@ -15,7 +15,8 @@
     "lint": "vue-cli-service lint",
     "build": "rollup --config",
     "prepare": "yarn build",
-    "tager-update": "yarn upgrade --latest @tager/admin-services @tager/admin-ui @tager/admin-layout"
+    "tager:update": "yarn upgrade --latest @tager/admin-services @tager/admin-ui @tager/admin-layout",
+    "yalc:clean": "yalc remove --all"
   },
   "dependencies": {
     "path-to-regexp": "^6.1.0"
@@ -25,7 +26,7 @@
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@tager/admin-layout": "^0.2.17",
     "@tager/admin-services": "^0.1.6",
-    "@tager/admin-ui": "^0.4.18",
+    "@tager/admin-ui": "^0.4.27",
     "@types/node": "12.x",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
@@ -52,9 +53,9 @@
     "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {
-    "@tager/admin-layout": ">=0.2.15",
-    "@tager/admin-services": ">=0.1.2",
-    "@tager/admin-ui": ">=0.4.13",
+    "@tager/admin-layout": ">=0.2.17",
+    "@tager/admin-services": ">=0.1.6",
+    "@tager/admin-ui": ">=0.4.27",
     "vue": "2.6.x"
   },
   "resolutions": {
