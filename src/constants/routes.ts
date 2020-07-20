@@ -5,7 +5,7 @@ import BannerAreaForm from '../views/BannerAreaForm.vue';
 import BannerItemList from '../views/BannerItemList.vue';
 import BannerItemForm from '../views/BannerItemForm.vue';
 
-import { BANNER_ROUTE_PATHS } from './paths';
+import { BANNER_ROUTE_PATHS, getBannerItemListUrl } from './paths';
 
 const HOME_BREADCRUMB = { path: '/', label: 'Home' };
 
@@ -56,6 +56,10 @@ export const BANNER_ITEM_FORM_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
+      {
+        path: getBannerItemListUrl({ areaAlias: route.params.areaAlias }),
+        label: BANNER_ITEM_LIST_ROUTE.name,
+      },
       { path: route.path, label: route.name },
     ],
   },
