@@ -127,6 +127,11 @@ export default Vue.extend({
       return this.bannerArea ? `"${this.bannerArea.label}" banners` : '';
     },
   },
+  watch: {
+    areaAlias() {
+      this.refreshBannerItemList();
+    },
+  },
   mounted(): void {
     this.refreshBannerItemList();
   },
