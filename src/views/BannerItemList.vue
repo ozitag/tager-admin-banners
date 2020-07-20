@@ -124,7 +124,7 @@ export default Vue.extend({
       return this.$route.params.areaAlias;
     },
     pageTitle(): string {
-      return this.bannerArea ? `"${this.bannerArea.label}" banners` : '';
+      return this.bannerArea ? `"${this.bannerArea.label}" banners` : 'Banners';
     },
   },
   watch: {
