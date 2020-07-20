@@ -72,7 +72,7 @@ const COLUMN_DEFS: Array<ColumnDefinition<BannerItem>> = [
   {
     id: 2,
     name: 'Image',
-    field: 'image.url',
+    field: 'image',
     type: 'image',
   },
   {
