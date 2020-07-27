@@ -11,6 +11,7 @@
           name="title"
           label="Title"
           :error="errors.title"
+          type="textarea"
         />
 
         <form-field-rich-text-input
