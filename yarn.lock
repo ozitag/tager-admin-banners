@@ -950,24 +950,24 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@tager/admin-layout@^0.2.17":
-  version "0.2.17"
-  resolved "https://registry.yarnpkg.com/@tager/admin-layout/-/admin-layout-0.2.17.tgz#88ffddb3cd12ff29c836b47598552fc3420f6f07"
-  integrity sha512-Sa4crkZnftP4sXc43B5D3Vgv6cT32rBAFgj93oIs6VSKeAM12pdGMMF05sgfMI5gTPZySnFF2vx5ayiZpDGIjw==
+"@tager/admin-layout@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-layout/-/admin-layout-0.3.0.tgz#5ff60f28ec088a3a4181182bf8ab3b4fa04ac388"
+  integrity sha512-pWm/DC7L49+b5cuX8ko7xyujE441P0MwMQiCq80u/7dScvszxEufSj+yXYl7ckYO8m8Qb3vsZjKrs6cNWbq5dg==
   dependencies:
     "@babel/runtime" "^7.10.4"
 
-"@tager/admin-services@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.1.6.tgz#ec300e279af67f478433bc09a1313a6a03fb4b52"
-  integrity sha512-QZgYprMn5LRkicfHOZZLQFDGPX+z0vC7Gex6A+mvoWgb7tcUT7csIx6AxOd0DksNHnXZnvUNRA8Ae/6MMF9RdA==
+"@tager/admin-services@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.0.tgz#b7c4fe0bb6fe1270959e7685f1a360f401ee2573"
+  integrity sha512-I7/7XQXLvdxsFE7noKNZHQrfPADw4bLDoV4YuipEcZ3U67ILmnfM+njxfHWGPK2bTo3bqQjEw0A1SGHdFhFv9Q==
   dependencies:
-    i18next "^19.5.4"
+    i18next "^19.6.3"
 
-"@tager/admin-ui@^0.4.27":
-  version "0.4.27"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.4.27.tgz#dbbbe7da91a93a3112d29f1f561c125e8724dc0e"
-  integrity sha512-XvwZGm2kL0S+aWOjN1/vgBqEfTB86tDzR05OvKuLlE1sQBCoZHOJOpv4PhFC9pHrGT+zrPc9H3nhmVhLqAfXmA==
+"@tager/admin-ui@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.5.2.tgz#faa1312ac40e38a1920c7700e69f551919290635"
+  integrity sha512-tyM8Ru1zYZ4PcfXGU3lVwAfJ6JlDZt362L2KUo0zzAX4RvRvuQ1Y+lnT9c3xJ4qCPO4lIR+jfg4hz8Ln/RH9Yg==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@ckeditor/ckeditor5-build-classic" "^19.0.2"
@@ -4675,10 +4675,10 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-i18next@^19.5.4:
-  version "19.5.5"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.5.5.tgz#e0eb84bdc81eb030079cbed13b688fc5ff1c3359"
-  integrity sha512-0vG/cdqA83RxEJfb07zEm1dl5akQono0vs1I+p0r6l7NwnNUIN4JIB+dYoyWlIEJ30/zNTZGnQVHBqXbEwA2gA==
+i18next@^19.6.3:
+  version "19.6.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.6.3.tgz#ce2346161b35c4c5ab691b0674119c7b349c0817"
+  integrity sha512-eYr98kw/C5z6kY21ti745p4IvbOJwY8F2T9tf/Lvy5lFnYRqE45+bppSgMPmcZZqYNT+xO0N0x6rexVR2wtZZQ==
   dependencies:
     "@babel/runtime" "^7.10.1"
 

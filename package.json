@@ -24,9 +24,9 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@tager/admin-layout": "^0.2.17",
-    "@tager/admin-services": "^0.1.6",
-    "@tager/admin-ui": "^0.4.27",
+    "@tager/admin-layout": "^0.3.0",
+    "@tager/admin-services": "^0.2.0",
+    "@tager/admin-ui": "^0.5.2",
     "@types/node": "12.x",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
