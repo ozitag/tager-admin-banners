@@ -2,11 +2,10 @@ import { MenuItemType } from '@tager/admin-layout';
 
 export const BANNER_MENU_ITEM: MenuItemType = {
   id: 'banner',
-  name: 'Banners',
-  path: '',
+  text: 'Banners',
   icon: 'viewList',
   children: [
-    { name: 'Banner areas', path: '/banners' },
-    { name: 'Create banner area', path: '/banners/create' },
+    { text: 'Banner areas', url: '/banners' },
+    { text: 'Create banner area', url: '/banners/create' },
   ],
 };

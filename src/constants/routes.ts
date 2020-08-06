@@ -7,7 +7,7 @@ import BannerItemForm from '../views/BannerItemForm.vue';
 
 import { BANNER_ROUTE_PATHS, getBannerItemListUrl } from './paths';
 
-const HOME_BREADCRUMB = { path: '/', label: 'Home' };
+const HOME_BREADCRUMB = { url: '/', text: 'Home' };
 
 export const BANNER_AREA_LIST_ROUTE: CustomRouteConfig = {
   path: BANNER_ROUTE_PATHS.AREA_LIST,
@@ -16,7 +16,7 @@ export const BANNER_AREA_LIST_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name ?? '' },
     ],
   },
 };
@@ -29,10 +29,10 @@ export const BANNER_AREA_FORM_ROUTE: CustomRouteConfig = {
     getBreadcrumbs: (route: CustomRoute) => [
       HOME_BREADCRUMB,
       {
-        path: BANNER_ROUTE_PATHS.AREA_LIST,
-        label: BANNER_AREA_LIST_ROUTE.name,
+        url: BANNER_ROUTE_PATHS.AREA_LIST,
+        text: BANNER_AREA_LIST_ROUTE.name ?? '',
       },
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name ?? '' },
     ],
   },
 };
@@ -44,7 +44,7 @@ export const BANNER_ITEM_LIST_ROUTE: CustomRouteConfig = {
   meta: {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name ?? '' },
     ],
   },
 };
@@ -57,10 +57,10 @@ export const BANNER_ITEM_FORM_ROUTE: CustomRouteConfig = {
     getBreadcrumbs: (route) => [
       HOME_BREADCRUMB,
       {
-        path: getBannerItemListUrl({ areaAlias: route.params.areaAlias }),
-        label: BANNER_ITEM_LIST_ROUTE.name,
+        url: getBannerItemListUrl({ areaAlias: route.params.areaAlias }),
+        text: BANNER_ITEM_LIST_ROUTE.name ?? '',
       },
-      { path: route.path, label: route.name },
+      { url: route.path, text: route.name ?? '' },
     ],
   },
 };
