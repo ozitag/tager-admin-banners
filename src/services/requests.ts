@@ -1,4 +1,5 @@
 import { request, Nullable, ResponseBody } from '@tager/admin-services';
+
 import { BannerArea, BannerItem } from '../typings/model';
 
 /** Banner area */

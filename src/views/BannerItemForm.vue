@@ -55,11 +55,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 import {
   convertRequestErrorToMap,
+  createId,
   FileType,
   Nullable,
 } from '@tager/admin-services';
+import { SingleFileInputValueType } from '@tager/admin-ui';
 
 import {
   BannerItemCreatePayload,
@@ -77,7 +80,7 @@ type FormValues = {
   buttonLink: string;
   buttonLabel: string;
   buttonIsNewTab: boolean;
-  image: Nullable<FileType>;
+  image: Nullable<SingleFileInputValueType>;
 };
 
 const INITIAL_VALUES: FormValues = {
@@ -162,7 +165,9 @@ export default Vue.extend({
         buttonLink: bannerItem.buttonLink ?? '',
         buttonLabel: bannerItem.buttonLabel,
         buttonIsNewTab: bannerItem.buttonIsNewTab,
-        image: bannerItem.image,
+        image: bannerItem.image
+          ? { id: createId(), file: bannerItem.image }
+          : null,
       };
     },
     submitForm() {
@@ -172,7 +177,7 @@ export default Vue.extend({
         buttonLink: this.values.buttonLink.trim() || null,
         buttonLabel: this.values.buttonLabel,
         buttonIsNewTab: this.values.buttonIsNewTab,
-        image: this.values.image?.id ?? null,
+        image: this.values.image?.file.id ?? null,
       };
 
       const requestPromise = this.isCreation

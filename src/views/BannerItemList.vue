@@ -57,8 +57,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 import { ColumnDefinition, formatBoolean } from '@tager/admin-ui';
 import { getMessageFromError, Nullable } from '@tager/admin-services';
+
 import { BannerArea, BannerItem } from '../typings/model';
 import {
   deleteBannerItem,

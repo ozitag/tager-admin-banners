@@ -4,7 +4,7 @@ import vue from 'rollup-plugin-vue';
 import commonjs from '@rollup/plugin-commonjs';
 
 export default {
-  input: 'src/index.ts',
+  input: 'src/main.ts',
   output: [
     {
       file: 'dist/index.esm.js',

@@ -46,6 +46,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 import { ColumnDefinition } from '@tager/admin-ui';
 import { getMessageFromError, Nullable } from '@tager/admin-services';
 

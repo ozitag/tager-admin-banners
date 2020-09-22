@@ -1,10 +1,10 @@
 {
   "name": "@tager/admin-banners",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/main.d.ts",
   "files": [
     "dist",
     "typings",
@@ -24,9 +24,9 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@tager/admin-layout": "^0.4.0",
-    "@tager/admin-services": "^0.2.2",
-    "@tager/admin-ui": "^0.6.1",
+    "@tager/admin-layout": "^0.4.2",
+    "@tager/admin-services": "^0.2.11",
+    "@tager/admin-ui": "^0.7.5",
     "@types/node": "12.x",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
@@ -35,11 +35,13 @@
     "@vue/cli-plugin-router": "~4.4.6",
     "@vue/cli-plugin-typescript": "~4.4.6",
     "@vue/cli-service": "~4.4.6",
+    "@vue/composition-api": "^1.0.0-beta.14",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^2.0.5",
@@ -53,10 +55,11 @@
     "vue-template-compiler": "^2.6.11"
   },
   "peerDependencies": {
-    "@tager/admin-layout": ">=0.3.0",
-    "@tager/admin-services": ">=0.2.0",
-    "@tager/admin-ui": ">=0.5.2",
-    "vue": "2.6.x"
+    "@tager/admin-layout": ">=0.4.2",
+    "@tager/admin-services": ">=0.2.11",
+    "@tager/admin-ui": ">=0.7.5",
+    "vue": "2.6.x",
+    "@vue/composition-api": ">=1.0.0-beta.14"
   },
   "resolutions": {
     "prettier": "2.x"
