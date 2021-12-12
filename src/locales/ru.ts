@@ -35,6 +35,11 @@ const RU: typeof EN = {
     active: 'Активный',
     disabled: 'Отключен',
   },
+
+  bannerWasSuccessfullyCreated: 'Баннер успешно создан',
+  bannerWasSuccessfullyUpdated: 'Баннер успешно обновлен',
+  bannerCreationWasFailed: 'Не удалось создать баннер',
+  bannerUpdateWasFailed: 'Не удалось обновить баннер',
 };
 
 export default RU;

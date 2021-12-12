@@ -33,6 +33,11 @@ const EN = {
     active: 'Active',
     disabled: 'Disabled',
   },
+
+  bannerWasSuccessfullyCreated: 'Banner was successfully created',
+  bannerWasSuccessfullyUpdated: 'Banner was successfully updated',
+  bannerCreationWasFailed: 'Banner creation was failed',
+  bannerUpdateWasFailed: 'Banner update was failed',
 };
 
 export default EN;
