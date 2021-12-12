@@ -50,3 +50,7 @@ export function deleteBanner(
 ): Promise<{ success: boolean }> {
   return request.delete({ path: `/admin/banners/${bannerId}` });
 }
+
+export function getBannerCount(): Promise<ResponseBody<{ count: number }>> {
+  return request.get({ path: '/admin/adv/count' });
+}
