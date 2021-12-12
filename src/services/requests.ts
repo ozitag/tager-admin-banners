@@ -48,5 +48,9 @@ export function updateBanner(
 export function deleteBanner(
   bannerId: number | string
 ): Promise<{ success: boolean }> {
-  return request.delete({ path: `/admin/banners/${bannerId}` });
+  return request.delete({ path: `/admin/adv/${bannerId}` });
+}
+
+export function getBannerCount(): Promise<ResponseBody<{ count: number }>> {
+  return request.get({ path: '/admin/adv/count' });
 }
