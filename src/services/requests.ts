@@ -54,3 +54,7 @@ export function deleteBanner(
 export function getBannerCount(): Promise<ResponseBody<{ count: number }>> {
   return request.get({ path: '/admin/adv/count' });
 }
+
+export function getBannerCount(): Promise<ResponseBody<{ count: number }>> {
+  return request.get({ path: '/admin/adv/count' });
+}
