@@ -1066,10 +1066,10 @@
   dependencies:
     "@babel/runtime" "^7.11.2"
 
-"@tager/admin-layout@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@tager/admin-layout/-/admin-layout-0.5.3.tgz#cef3f490f750803d5bbe292b826c67a4a813ea36"
-  integrity sha512-88SUJ4ky6x/yX8ZnH/f67mBfJdOeLn2DQTiyMjD9ajkiwnJ8JNwu3lpSN+F8xCwW4PzybRoudhR8cpMjxsHzZg==
+"@tager/admin-layout@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@tager/admin-layout/-/admin-layout-0.5.4.tgz#20fde2216c20b0529725299821aeab51e62dec9f"
+  integrity sha512-XtDclkReoyjjtKJzUJDTYFZ+jVj8DRTAI1ys7x1pkpmZsn4Bj+qpkfL13F1iRDQT8y24wwLw2qggoxSs+sGTJQ==
   dependencies:
     "@babel/runtime" "^7.10.4"
 
@@ -1082,10 +1082,10 @@
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.8.85":
-  version "0.8.85"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.85.tgz#1a1245489c556f99d6cd623134a16c7727baf686"
-  integrity sha512-HnHVRBdCQbw7t1YFqiWU8iZNJqAd/jxckjjP1Jj/d5FuwrHj/Zai/gv5FXXQq/d5sKC7n4Q0cN5BLgk7bRxyNw==
+"@tager/admin-ui@^0.8.96":
+  version "0.8.96"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.96.tgz#e1feb196049794ca3eb4cf21feda19532797d547"
+  integrity sha512-yoH+a6eAKOqITeL1e9zUpZzSpynZqsvbw5xegsBLfNyU6A28c0tHnBdbwicxdMzyKn6NtcbMJWuEtlBgZOwg3Q==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"

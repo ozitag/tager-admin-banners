@@ -181,7 +181,7 @@ export default defineComponent({
     };
 
     const columnDefs = computed<ColumnDefinition<Banner>[]>(() =>
-      getColumnDefs(context.root.$t)
+      getColumnDefs(zoneList.value, context.root.$t)
     );
 
     const isRowDataLoading = computed<boolean>(

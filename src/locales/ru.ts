@@ -25,6 +25,7 @@ const RU: typeof EN = {
   remove: 'Удалить',
   actions: 'Действия',
   date: 'Дата',
+  name: 'Название',
 
   success: 'Успех',
   error: 'Ошибка',

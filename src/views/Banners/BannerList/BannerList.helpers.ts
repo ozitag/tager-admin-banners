@@ -3,6 +3,7 @@ import { TFunction } from 'i18next';
 import { ColumnDefinition } from '@tager/admin-ui';
 
 import { Banner, Status } from '../../../typings/banners';
+import { Zone } from '../../../typings/zones';
 
 export function getStatus(type: Status, t: TFunction) {
   switch (type) {
@@ -20,12 +21,16 @@ export function getStatus(type: Status, t: TFunction) {
   }
 }
 
-export function getColumnDefs(t: TFunction): ColumnDefinition<Banner>[] {
+export function getColumnDefs(
+  zoneList: Zone[],
+  t: TFunction
+): ColumnDefinition<Banner>[] {
   return [
     {
       id: 0,
       name: '#',
       field: 'id',
+      format: ({ rowIndex }) => String(rowIndex + 1),
       style: { width: '50px', textAlign: 'center' },
       headStyle: { width: '50px', textAlign: 'center' },
     },
@@ -33,8 +38,14 @@ export function getColumnDefs(t: TFunction): ColumnDefinition<Banner>[] {
       id: 1,
       name: t('banners:zone'),
       field: 'bannerZone',
-      format: ({ row }) =>
-        row.bannerZone ? row.bannerZone : t('banners:bannerZoneIsDeleted'),
+      format: ({ row }) => {
+        const foundBannerZone = zoneList.find(
+          (zone) => zone.id === row.bannerZone
+        );
+        return foundBannerZone
+          ? foundBannerZone.name
+          : t('banners:bannerZoneIsDeleted');
+      },
     },
     {
       id: 2,
@@ -76,6 +87,9 @@ export function getColumnDefs(t: TFunction): ColumnDefinition<Banner>[] {
           },
         ],
       }),
+      options: {
+        shouldOpenNewTab: true,
+      },
     },
     {
       id: 6,

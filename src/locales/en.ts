@@ -23,6 +23,7 @@ const EN = {
   remove: 'Remove',
   actions: 'actions',
   date: 'Date',
+  name: 'Name',
 
   success: 'Success',
   error: 'Error',
