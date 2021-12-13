@@ -112,7 +112,7 @@ export function useAdvancedSearch({ context, t, zoneList }: Params): State {
   const filterParams = computed(() =>
     getFilterParams({
       [FilterTypes.Zone]: zoneFilter.value.map(({ value }) => value),
-      [FilterTypes.Date]: dateFilter.value,
+      [FilterTypes.Date]: dateFilter.value || [],
       [FilterTypes.Status]: statusFilter.value.map(({ value }) => value),
     })
   );
