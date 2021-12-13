@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-banners",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
