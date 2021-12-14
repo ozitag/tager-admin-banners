@@ -26,6 +26,7 @@ const RU: typeof EN = {
   actions: 'Действия',
   date: 'Дата',
   name: 'Название',
+  priority: 'Приоритет',
 
   success: 'Успех',
   error: 'Ошибка',

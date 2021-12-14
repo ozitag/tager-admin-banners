@@ -24,6 +24,7 @@ const EN = {
   actions: 'actions',
   date: 'Date',
   name: 'Name',
+  priority: 'Priority',
 
   success: 'Success',
   error: 'Error',

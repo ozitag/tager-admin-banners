@@ -57,6 +57,13 @@ export function getColumnDefs(
     },
     {
       id: 3,
+      name: t('banners:priority'),
+      field: 'priority',
+      style: { width: '100px', textAlign: 'center' },
+      headStyle: { width: '100px', textAlign: 'center' },
+    },
+    {
+      id: 4,
       name: t('banners:period'),
       field: 'dateStart',
       format: ({ row }) =>
@@ -65,13 +72,13 @@ export function getColumnDefs(
         }`,
     },
     {
-      id: 4,
+      id: 5,
       name: t('banners:image'),
       field: 'image',
       type: 'image',
     },
     {
-      id: 5,
+      id: 6,
       name: t('banners:link'),
       field: 'link',
       type: 'name',
@@ -92,12 +99,12 @@ export function getColumnDefs(
       },
     },
     {
-      id: 6,
+      id: 7,
       name: t('banners:comment'),
       field: 'comment',
     },
     {
-      id: 7,
+      id: 8,
       name: t('banners:actions'),
       field: 'actions',
       style: { whiteSpace: 'nowrap', width: '100px' },

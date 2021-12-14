@@ -16,6 +16,7 @@ export function convertBannerToFormValues(
   );
 
   return {
+    priority: banner?.priority ?? 1,
     link: banner?.link ?? '',
     image: banner?.image ? { id: createId(), file: banner.image } : null,
     bannerZone: foundZone ?? null,
@@ -32,6 +33,9 @@ export function convertBannerFormValuesToPayload(
 ): BannerPayload {
   return {
     ...values,
+    priority: values.priority ? Number(values.priority) : 1,
+    dateStart: values.dateStart ? values.dateStart : null,
+    dateEnd: values.dateEnd ? values.dateEnd : null,
     image: values.image?.file.id ?? null,
     bannerZone: values.bannerZone?.value ?? '',
   };

@@ -11,6 +11,7 @@ export enum Status {
 export interface Banner {
   id: number;
   status: Status;
+  priority: number;
   link: Nullable<string>;
   image: Nullable<FileType>;
   bannerZone: Nullable<string>;
@@ -25,6 +26,7 @@ export interface BannerFormValues {
   link: Nullable<string>;
   image: Nullable<SingleFileInputValueType>;
   bannerZone: Nullable<OptionType>;
+  priority: number;
   openNewTab: boolean;
   dateStart: string;
   dateEnd: string;
@@ -35,10 +37,11 @@ export interface BannerFormValues {
 export interface BannerPayload {
   link: Nullable<string>;
   image: Nullable<string>;
+  priority: number;
   bannerZone: string;
   openNewTab: boolean;
-  dateStart: string;
-  dateEnd: string;
+  dateStart: Nullable<string>;
+  dateEnd: Nullable<string>;
   disabled: boolean;
   comment: string;
 }
