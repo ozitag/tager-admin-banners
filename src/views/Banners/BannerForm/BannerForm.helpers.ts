@@ -1,5 +1,6 @@
 import { OptionType } from '@tager/admin-ui';
 import { createId, Nullable } from '@tager/admin-services';
+import { universalFieldUtils } from '@tager/admin-dynamic-field';
 
 import {
   Banner,
@@ -16,7 +17,7 @@ export function convertBannerToFormValues(
   );
 
   return {
-    priority: banner?.priority ?? 1,
+    priority: String(banner?.priority ?? 1),
     link: banner?.link ?? '',
     image: banner?.image ? { id: createId(), file: banner.image } : null,
     bannerZone: foundZone ?? null,
@@ -25,6 +26,7 @@ export function convertBannerToFormValues(
     dateEnd: banner?.dateEnd ?? '',
     disabled: banner?.disabled ?? false,
     comment: banner?.comment ?? '',
+    fields: [],
   };
 }
 
@@ -38,5 +40,9 @@ export function convertBannerFormValuesToPayload(
     dateEnd: values.dateEnd ? values.dateEnd : null,
     image: values.image?.file.id ?? null,
     bannerZone: values.bannerZone?.value ?? '',
+    fields: values.fields.map((field) => ({
+      name: field.config.name,
+      value: universalFieldUtils.getOutgoingValue(field),
+    })),
   };
 }

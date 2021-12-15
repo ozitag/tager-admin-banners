@@ -1,6 +1,6 @@
 import { request, ResponseBody } from '@tager/admin-services';
 
-import { Zone } from '../typings/zones';
+import { Zone, ZoneFields } from '../typings/zones';
 import { Banner, BannerPayload } from '../typings/banners';
 
 /** Zones **/
@@ -11,6 +11,12 @@ export function getZones(params?: {
   pageSize?: number;
 }): Promise<ResponseBody<Zone[]>> {
   return request.get({ path: '/admin/adv/zones', params });
+}
+
+export function getZoneFields(
+  zoneId: string
+): Promise<ResponseBody<ZoneFields>> {
+  return request.get({ path: `/admin/adv/zones/${zoneId}` });
 }
 
 /** Banners **/
