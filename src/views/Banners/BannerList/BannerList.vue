@@ -122,7 +122,7 @@ export default defineComponent({
     Page,
     DataTable,
   },
-  setup(props, context: SetupContext) {
+  setup() {
     const route = useRoute();
     const router = useRouter();
     const { t } = useI18n();
@@ -139,7 +139,6 @@ export default defineComponent({
       tags,
       tagRemovalHandler,
     } = useAdvancedSearch({
-      context,
       t,
       zoneList,
       route,
@@ -230,17 +229,8 @@ export default defineComponent({
 
 <style lang="scss">
 .filters {
-  display: flex;
-  margin: 0 -10px;
-
-  &:not(:first-child) {
-    margin-top: 10px;
-  }
-
-  .filter {
-    padding: 10px 10px 0;
-    width: 50%;
-    margin: 0;
-  }
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 </style>

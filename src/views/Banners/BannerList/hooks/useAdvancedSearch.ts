@@ -9,13 +9,13 @@ import {
   getFilterParams,
   OptionType,
 } from '@tager/admin-ui';
+import { isNotNullish } from '@tager/admin-services';
 
 import { Zone } from '../../../../typings/zones';
 import { Status } from '../../../../typings/banners';
 import { getStatus } from '../BannerList.helpers';
 
 interface Params {
-  context: SetupContext;
   t: TFunction;
   zoneList: Ref<Zone[]>;
   route: RouteLocationNormalizedLoaded;
@@ -39,12 +39,7 @@ enum FilterTypes {
   Status = 'status',
 }
 
-export function useAdvancedSearch({
-  context,
-  t,
-  zoneList,
-  route,
-}: Params): State {
+export function useAdvancedSearch({ t, zoneList, route }: Params): State {
   /** Zone **/
 
   const zonesOptionList = computed<OptionType[]>(() =>
@@ -137,7 +132,32 @@ export function useAdvancedSearch({
 
   /** Tags **/
 
-  const tags = computed<FilterTagType[]>(() => []);
+  const tags = computed<FilterTagType[]>(() =>
+    [
+      ...zoneFilter.value.map(({ value, label }) => ({
+        value,
+        label,
+        name: FilterTypes.Zone,
+        title: t('banners:zone'),
+      })),
+
+      ...statusFilter.value.map(({ value, label }) => ({
+        value,
+        label,
+        name: FilterTypes.Status,
+        title: t('banners:status'),
+      })),
+
+      dateFilter.value
+        ? {
+            value: dateFilter.value,
+            label: dateFilter.value,
+            name: FilterTypes.Date,
+            title: t('banners:date'),
+          }
+        : null,
+    ].filter(isNotNullish)
+  );
 
   return {
     zoneFilter,
