@@ -7,6 +7,7 @@ yalc.lock
 src/config/app.json
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -23,8 +24,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-.env
-
-.yalc
-yalc.lock

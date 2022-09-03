@@ -1,15 +1,15 @@
 <template>
-  <page
-    :title="$t('banners:banners')"
+  <Page
+    :title="$i18n.t('banners:banners')"
     :header-buttons="[
       {
-        text: $t('banners:createBanner'),
+        text: $i18n.t('banners:createBanner'),
         href: getBannersBannerFormUrl({ bannerId: 'create' }),
       },
     ]"
   >
-    <template v-slot:content>
-      <data-table
+    <template #content>
+      <DataTable
         :column-defs="columnDefs"
         :row-data="rowData"
         :loading="isRowDataLoading"
@@ -26,82 +26,85 @@
         }"
         @change="handleChange"
       >
-        <template v-slot:filters>
-          <advanced-search :tags="tags" @click:tag="tagRemovalHandler">
+        <template #filters>
+          <AdvancedSearch :tags="tags" @click:tag="tagRemovalHandler">
             <div class="filters">
-              <form-field-multi-select
-                v-model="zoneFilter"
+              <FormFieldMultiSelect
+                v-model:selected-options="zoneFilter"
                 :options="zonesOptionList"
                 name="zoneFilter"
                 :searchable="true"
-                :label="$t('banners:zone')"
+                :label="$i18n.t('banners:zone')"
                 class="filter"
               />
 
-              <form-field
-                v-model="dateFilter"
-                :label="$t('banners:date')"
+              <FormField
+                v-model:value="dateFilter"
+                :label="$i18n.t('banners:date')"
                 name="dateFilter"
                 type="date"
                 class="filter"
               />
 
-              <form-field-multi-select
-                v-model="statusFilter"
+              <FormFieldMultiSelect
+                v-model:selected-options="statusFilter"
                 :options="statusesOptionList"
                 name="statusFilter"
                 :searchable="true"
-                :label="$t('banners:status')"
+                :label="$i18n.t('banners:status')"
                 class="filter"
               />
             </div>
-          </advanced-search>
+          </AdvancedSearch>
         </template>
 
-        <template v-slot:cell(actions)="{ row }">
-          <base-button
+        <template #cell(actions)="{ row }">
+          <BaseButton
             variant="icon"
-            :title="$t('banners:edit')"
+            :title="$i18n.t('banners:edit')"
             :disabled="isBusy(row.id)"
             :href="getBannersBannerFormUrl({ bannerId: row.id })"
           >
-            <svg-icon name="edit" />
-          </base-button>
+            <EditIcon />
+          </BaseButton>
 
-          <base-button
+          <BaseButton
             variant="icon"
-            :title="$t('banners:remove')"
+            :title="$i18n.t('banners:remove')"
             :disabled="isBusy(row.id)"
             @click="handleResourceDelete(row.id)"
           >
-            <svg-icon name="delete" />
-          </base-button>
+            <DeleteIcon />
+          </BaseButton>
         </template>
-      </data-table>
+      </DataTable>
     </template>
-  </page>
+  </Page>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  SetupContext,
-  watch,
-} from '@vue/composition-api';
+import { computed, defineComponent, SetupContext, watch } from 'vue';
 import isEqual from 'lodash.isequal';
 import pick from 'lodash.pick';
+import { useRoute, useRouter } from 'vue-router';
 
 import {
   ColumnDefinition,
   useDataTable,
-  useTranslation,
+  DataTable,
+  AdvancedSearch,
+  FormFieldMultiSelect,
+  FormField,
+  BaseButton,
+  EditIcon,
+  DeleteIcon,
 } from '@tager/admin-ui';
-import { useResourceDelete } from '@tager/admin-services';
+import { useI18n, useResourceDelete } from '@tager/admin-services';
+import { Page } from '@tager/admin-layout';
 
 import { deleteBanner, getBanners } from '../../../services/requests';
 import { Banner } from '../../../typings/banners';
-import { getBannersBannerFormUrl } from '../../../constants/paths';
+import { getBannersBannerFormUrl } from '../../../utils/paths';
 import { useFetchZones } from '../../../hooks';
 
 import { getColumnDefs } from './BannerList.helpers';
@@ -109,11 +112,22 @@ import { useAdvancedSearch } from './hooks';
 
 export default defineComponent({
   name: 'BannerList',
+  components: {
+    DeleteIcon,
+    EditIcon,
+    BaseButton,
+    FormField,
+    FormFieldMultiSelect,
+    AdvancedSearch,
+    Page,
+    DataTable,
+  },
   setup(props, context: SetupContext) {
-    const { t } = useTranslation(context);
-    const { loading: isZonesLoading, data: zoneList } = useFetchZones({
-      context,
-    });
+    const route = useRoute();
+    const router = useRouter();
+    const { t } = useI18n();
+
+    const { loading: isZonesLoading, data: zoneList } = useFetchZones();
 
     const {
       zoneFilter,
@@ -128,6 +142,7 @@ export default defineComponent({
       context,
       t,
       zoneList,
+      route,
     });
 
     const {
@@ -149,7 +164,6 @@ export default defineComponent({
           ...filterParams.value,
         }),
       initialValue: [],
-      context,
       resourceName: 'Banners',
     });
 
@@ -159,12 +173,12 @@ export default defineComponent({
       }
 
       const newQuery = {
-        ...pick(context.root.$route.query, ['query', 'pageNumber']),
+        ...pick(route.query, ['query', 'pageNumber']),
         ...filterParams.value,
       };
 
-      if (!isEqual(context.root.$route.query, newQuery)) {
-        context.root.$router.replace({ query: newQuery });
+      if (!isEqual(route.query, newQuery)) {
+        router.replace({ query: newQuery });
         fetchBanners();
       }
     });
@@ -173,7 +187,6 @@ export default defineComponent({
       deleteResource: deleteBanner,
       resourceName: 'Banner',
       onSuccess: fetchBanners,
-      context,
     });
 
     const isBusy = (bannerId: number): boolean => {
@@ -181,7 +194,7 @@ export default defineComponent({
     };
 
     const columnDefs = computed<ColumnDefinition<Banner>[]>(() =>
-      getColumnDefs(zoneList.value, context.root.$t)
+      getColumnDefs(zoneList.value, t)
     );
 
     const isRowDataLoading = computed<boolean>(

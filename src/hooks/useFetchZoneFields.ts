@@ -1,10 +1,4 @@
-import {
-  computed,
-  onMounted,
-  Ref,
-  SetupContext,
-  watch,
-} from '@vue/composition-api';
+import { computed, onMounted, Ref, SetupContext, watch } from 'vue';
 
 import { Nullable, ResourceRef, useResource } from '@tager/admin-services';
 
@@ -13,10 +7,8 @@ import { ZoneFields } from '../typings/zones';
 import { BannerFormValues } from '../typings/banners';
 
 export function useFetchZoneFields({
-  context,
   values,
 }: {
-  context: SetupContext;
   values: Ref<BannerFormValues>;
 }): ResourceRef<Nullable<ZoneFields>> {
   const zoneId = computed(() => values.value.bannerZone?.value ?? '');
@@ -24,7 +16,6 @@ export function useFetchZoneFields({
   const [fetchZoneFields, resource] = useResource<Nullable<ZoneFields>>({
     fetchResource: () => getZoneFields(zoneId.value),
     initialValue: null,
-    context,
     resourceName: 'Zone Fields',
   });
 

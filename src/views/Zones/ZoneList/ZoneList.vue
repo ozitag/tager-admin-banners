@@ -1,7 +1,7 @@
 <template>
-  <page :title="$t('banners:zones')">
-    <template v-slot:content>
-      <data-table
+  <Page :title="$i18n.t('banners:zones')">
+    <template #content>
+      <DataTable
         :column-defs="columnDefs"
         :row-data="rowData"
         :loading="isRowDataLoading"
@@ -11,29 +11,26 @@
         :use-pagination="false"
         @change="handleChange"
       >
-        <template v-slot:cell(banners-count)="{ row }">
-          <count-button
+        <template #cell(banners-count)="{ row }">
+          <CountButton
             :href="getLinkToBannersByZone(row.id)"
             variant="outline-secondary"
             :count="row.bannersCount"
           >
-            {{ $t('banners:banners') }}
-          </count-button>
+            {{ $i18n.t('banners:banners') }}
+          </CountButton>
         </template>
-      </data-table>
+      </DataTable>
     </template>
-  </page>
+  </Page>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  SetupContext,
-} from '@vue/composition-api';
+import { computed, defineComponent, onMounted, SetupContext } from 'vue';
 
-import { useDataTable } from '@tager/admin-ui';
+import { CountButton, useDataTable, DataTable } from '@tager/admin-ui';
+import { Page } from '@tager/admin-layout';
+import { useI18n } from '@tager/admin-services';
 
 import { Zone } from '../../../typings/zones';
 import { getZones } from '../../../services/requests';
@@ -42,7 +39,10 @@ import { getColumnDefs, getLinkToBannersByZone } from './ZoneList.helpers';
 
 export default defineComponent({
   name: 'ZoneList',
-  setup(props, context: SetupContext) {
+  components: { CountButton, Page, DataTable },
+  setup() {
+    const i18n = useI18n();
+
     const {
       fetchEntityList: fetchZones,
       isLoading: isZonesLoading,
@@ -52,7 +52,6 @@ export default defineComponent({
     } = useDataTable<Zone>({
       fetchEntityList: getZones,
       initialValue: [],
-      context,
       resourceName: 'Banner Zones',
     });
 
@@ -60,7 +59,7 @@ export default defineComponent({
       fetchZones();
     });
 
-    const columnDefs = computed(() => getColumnDefs(context.root.$t));
+    const columnDefs = computed(() => getColumnDefs(i18n.t));
 
     return {
       columnDefs,

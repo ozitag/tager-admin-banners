@@ -1,77 +1,79 @@
 <template>
-  <page
+  <Page
     :title="
-      isCreation ? $t('banners:createBanner') : $t('banners:updateBanner')
+      isCreation
+        ? $i18n.t('banners:createBanner')
+        : $i18n.t('banners:updateBanner')
     "
     :is-content-loading="isContentLoading"
   >
-    <template v-slot:content>
+    <template #content>
       <form novalidate @submit.prevent="submitForm">
         <div class="zone">
-          <form-field-select
-            v-model="values.bannerZone"
+          <FormFieldSelect
+            v-model:value="values.bannerZone"
             name="bannerZone"
-            :label="$t('banners:zone')"
+            :label="$i18n.t('banners:zone')"
             :options="zonesOptionList"
             :error="errors.bannerZone"
           />
 
-          <form-field
-            v-model="values.priority"
+          <FormField
+            v-model:value="values.priority"
             name="priority"
-            :label="$t('banners:priority')"
+            :label="$i18n.t('banners:priority')"
             :error="errors.priority"
           />
         </div>
 
-        <input-label>{{ $t('banners:period') }}</input-label>
+        <InputLabel>{{ $i18n.t('banners:period') }}</InputLabel>
 
         <div class="date">
-          <form-field
-            v-model="values.dateStart"
-            :label="$t('banners:from')"
+          <FormField
+            v-model:value="values.dateStart"
+            :label="$i18n.t('banners:from')"
             name="dateStart"
             type="date"
             :max="values.dateEnd"
           />
 
-          <form-field
-            v-model="values.dateEnd"
-            :label="$t('banners:to')"
+          <FormField
+            v-model:value="values.dateEnd"
+            :label="$i18n.t('banners:to')"
             name="dateEnd"
             type="date"
             :min="values.dateStart"
           />
         </div>
 
-        <form-field-checkbox
-          v-model="values.disabled"
+        <FormFieldCheckbox
+          v-model:checked="values.disabled"
           name="disabled"
-          :label="$t('banners:disabled')"
+          :label="$i18n.t('banners:disabled')"
           :error="errors.disabled"
         />
 
         <div class="link">
-          <form-field
-            v-model="values.link"
+          <FormField
+            v-model:value="values.link"
             name="link"
-            :label="$t('banners:link')"
+            :label="$i18n.t('banners:link')"
             :error="errors.name"
           />
 
-          <form-field-checkbox
-            v-model="values.openNewTab"
+          <FormFieldCheckbox
+            v-model:checked="values.openNewTab"
             name="openNewTab"
-            :label="$t('banners:openNewTab')"
+            :label="$i18n.t('banners:openNewTab')"
             :error="errors.openNewTab"
           />
         </div>
 
-        <form-field-file-input
-          v-model="values.image"
+        <FormFieldFileInput
+          v-model:value="values.image"
           name="image"
           file-type="image"
-          :label="$t('banners:image')"
+          :label="$i18n.t('banners:image')"
           :error="errors.file"
         />
 
@@ -81,40 +83,50 @@
           :field="field"
         />
 
-        <form-field
-          v-model="values.comment"
+        <FormField
+          v-model:value="values.comment"
           name="comment"
           type="textarea"
-          :label="$t('banners:comment')"
+          :label="$i18n.t('banners:comment')"
           :error="errors.comment"
         />
       </form>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <FormFooter
         :back-href="bannerListUrl"
-        :on-submit="submitForm"
         :is-submitting="isSubmitting"
         :is-creation="isCreation"
         :can-create-another="isCreation"
+        @submit="submitForm"
       />
     </template>
-  </page>
+  </Page>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  ref,
-  SetupContext,
-  watch,
-} from '@vue/composition-api';
+import { computed, defineComponent, ref, SetupContext, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-import { FormFooter, OptionType, TagerFormSubmitEvent } from '@tager/admin-ui';
+import {
+  FormField,
+  FormFieldCheckbox,
+  FormFieldFileInput,
+  FormFieldSelect,
+  FormFooter,
+  InputLabel,
+  OptionType,
+  TagerFormSubmitEvent,
+} from '@tager/admin-ui';
 import { DynamicField, universalFieldUtils } from '@tager/admin-dynamic-field';
-import { convertRequestErrorToMap } from '@tager/admin-services';
+import {
+  convertRequestErrorToMap,
+  navigateBack,
+  useI18n,
+  useToast,
+} from '@tager/admin-services';
+import { Page } from '@tager/admin-layout';
 
 import { useFetchZones } from '../../../hooks';
 import { BannerFormValues } from '../../../typings/banners';
@@ -122,7 +134,7 @@ import { useFetchBanner } from '../../../hooks/useFetchBanner';
 import {
   getBannersBannerFormUrl,
   getBannersBannerListUrl,
-} from '../../../constants/paths';
+} from '../../../utils/paths';
 import { createBanner, updateBanner } from '../../../services/requests';
 import { useFetchZoneFields } from '../../../hooks/useFetchZoneFields';
 
@@ -133,16 +145,28 @@ import {
 
 export default defineComponent({
   name: 'BannerForm',
-  components: { FormFooter, DynamicField },
-  setup(props, context: SetupContext) {
-    const bannerId = computed<string>(
-      () => context.root.$route.params.bannerId
-    );
+  components: {
+    FormFieldFileInput,
+    FormFieldCheckbox,
+    InputLabel,
+    FormField,
+    FormFieldSelect,
+    Page,
+    FormFooter,
+    DynamicField,
+  },
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const toast = useToast();
+    const { t } = useI18n();
+
+    const bannerId = computed<string>(() => route.params.bannerId as string);
     const isCreation = computed<boolean>(() => bannerId.value === 'create');
 
     /** Zones **/
 
-    const { data: zones, loading: isZonesLoading } = useFetchZones({ context });
+    const { data: zones, loading: isZonesLoading } = useFetchZones();
 
     const zonesOptionList = computed<OptionType[]>(() =>
       zones.value.map<OptionType>((zone) => ({
@@ -154,7 +178,6 @@ export default defineComponent({
     /** Banner **/
 
     const { data: banner, loading: isBannerLoading } = useFetchBanner({
-      context,
       bannerId,
       isCreation,
     });
@@ -176,19 +199,16 @@ export default defineComponent({
 
     /** Zone Fields **/
 
-    const {
-      loading: isZoneFieldsLoading,
-      data: zoneFields,
-    } = useFetchZoneFields({ context, values });
+    const { loading: isZoneFieldsLoading, data: zoneFields } =
+      useFetchZoneFields({ values });
 
     watch(zoneFields, () => {
-      values.value.fields = (
-        zoneFields.value?.fields ?? []
-      ).map((fieldConfig, index) =>
-        universalFieldUtils.createFormField(
-          fieldConfig,
-          banner.value ? banner.value.fields[index].value ?? null : null
-        )
+      values.value.fields = (zoneFields.value?.fields ?? []).map(
+        (fieldConfig, index) =>
+          universalFieldUtils.createFormField(
+            fieldConfig,
+            banner.value ? banner.value.fields[index].value ?? null : null
+          )
       );
     });
 
@@ -206,39 +226,36 @@ export default defineComponent({
           errors.value = {};
 
           if (event.type === 'create') {
-            context.root.$router.push(
-              getBannersBannerFormUrl({ bannerId: String(data.id) })
-            );
-          }
-
-          if (event.type === 'create_exit' || event.type === 'save_exit') {
-            context.root.$router.push(getBannersBannerListUrl());
-          }
-
-          if (event.type === 'create_create-another') {
+            router.push(getBannersBannerFormUrl({ bannerId: String(data.id) }));
+          } else if (
+            event.type === 'create_exit' ||
+            event.type === 'save_exit'
+          ) {
+            navigateBack(router, getBannersBannerListUrl());
+          } else if (event.type === 'create_create-another') {
             values.value = convertBannerToFormValues(
               null,
               zonesOptionList.value
             );
           }
 
-          context.root.$toast({
+          toast.show({
             variant: 'success',
-            title: context.root.$t('banners:success'),
+            title: t('banners:success'),
             body: isCreation.value
-              ? context.root.$t('banners:bannerWasSuccessfullyCreated')
-              : context.root.$t('banners:bannerWasSuccessfullyUpdated'),
+              ? t('banners:bannerWasSuccessfullyCreated')
+              : t('banners:bannerWasSuccessfullyUpdated'),
           });
         })
         .catch((error) => {
           console.error(error);
           errors.value = convertRequestErrorToMap(error);
-          context.root.$toast({
+          toast.show({
             variant: 'danger',
-            title: context.root.$t('banners:error'),
+            title: t('banners:error'),
             body: isCreation.value
-              ? context.root.$t('banners:bannerCreationWasFailed')
-              : context.root.$t('banners:bannerUpdateWasFailed'),
+              ? t('banners:bannerCreationWasFailed')
+              : t('banners:bannerUpdateWasFailed'),
           });
         })
         .finally(() => {

@@ -1,12 +1,6 @@
-import {
-  computed,
-  ComputedRef,
-  ref,
-  Ref,
-  SetupContext,
-  watch,
-} from '@vue/composition-api';
+import { computed, ComputedRef, ref, Ref, SetupContext, watch } from 'vue';
 import { TFunction } from 'i18next';
+import { RouteLocationNormalizedLoaded } from 'vue-router';
 
 import {
   FilterTagType,
@@ -23,7 +17,8 @@ import { getStatus } from '../BannerList.helpers';
 interface Params {
   context: SetupContext;
   t: TFunction;
-  zoneList: ComputedRef<Zone[]>;
+  zoneList: Ref<Zone[]>;
+  route: RouteLocationNormalizedLoaded;
 }
 
 interface State {
@@ -34,6 +29,7 @@ interface State {
   statusesOptionList: ComputedRef<OptionType[]>;
   filterParams: ComputedRef<Record<string, string | string[]>>;
   tags: ComputedRef<FilterTagType[]>;
+
   tagRemovalHandler(event: FilterTagType): void;
 }
 
@@ -43,7 +39,12 @@ enum FilterTypes {
   Status = 'status',
 }
 
-export function useAdvancedSearch({ context, t, zoneList }: Params): State {
+export function useAdvancedSearch({
+  context,
+  t,
+  zoneList,
+  route,
+}: Params): State {
   /** Zone **/
 
   const zonesOptionList = computed<OptionType[]>(() =>
@@ -55,7 +56,7 @@ export function useAdvancedSearch({ context, t, zoneList }: Params): State {
 
   const initialZoneFilter = computed<OptionType[]>(() => {
     const queryValue = getFilterParamAsStringArray(
-      context.root.$route.query,
+      route.query,
       FilterTypes.Zone
     );
     return zonesOptionList.value.filter(({ value }) =>
@@ -72,8 +73,7 @@ export function useAdvancedSearch({ context, t, zoneList }: Params): State {
   /** Date **/
 
   const initialDateFilter = computed<string>(
-    () =>
-      getFilterParamAsString(context.root.$route.query, FilterTypes.Date) ?? ''
+    () => getFilterParamAsString(route.query, FilterTypes.Date) ?? ''
   );
 
   const dateFilter = ref<string>(initialDateFilter.value);
@@ -93,7 +93,7 @@ export function useAdvancedSearch({ context, t, zoneList }: Params): State {
 
   const initialStatusFilter = computed<OptionType[]>(() => {
     const queryValue = getFilterParamAsStringArray(
-      context.root.$route.query,
+      route.query,
       FilterTypes.Status
     );
     return statusesOptionList.value.filter(({ value }) =>

@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "allowJs": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "preserveValueImports": true,
     "sourceMap": true,
     "declaration": true,
+    "declarationDir": "dist",
+    "skipLibCheck": true,
     "types": [
       "webpack-env"
     ],
@@ -20,17 +25,15 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "types/index.d.ts"
+    "custom-types"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.stories.ts"
   ]
 }

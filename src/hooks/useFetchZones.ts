@@ -1,17 +1,14 @@
-import { onMounted, SetupContext } from '@vue/composition-api';
+import { onMounted } from 'vue';
 
 import { ResourceRef, useResource } from '@tager/admin-services';
 
 import { getZones } from '../services/requests';
 import { Zone } from '../typings/zones';
 
-export function useFetchZones(params: {
-  context: SetupContext;
-}): ResourceRef<Zone[]> {
+export function useFetchZones(): ResourceRef<Zone[]> {
   const [fetchZones, resource] = useResource<Zone[]>({
     fetchResource: getZones,
     initialValue: [],
-    context: params.context,
     resourceName: 'Banner zones',
   });
 

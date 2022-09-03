@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 import { ColumnDefinition } from '@tager/admin-ui';
 
 import { Zone } from '../../../typings/zones';
-import { getBannersBannerListUrl } from '../../../constants/paths';
+import { getBannersBannerListUrl } from '../../../utils/paths';
 
 export function getColumnDefs(t: TFunction): ColumnDefinition<Zone>[] {
   return [

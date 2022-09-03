@@ -1,4 +1,4 @@
-const EN = {
+export const EN = {
   home: 'Home',
   zone: 'Banner zone',
   zones: 'Banner zones',
