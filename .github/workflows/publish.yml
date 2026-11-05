@@ -19,9 +19,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          # 18 — верхняя граница engines у @achrinza/node-ipc (транзитивная
-          # зависимость @vue/cli-shared-utils). На Node 19+ yarn падает
-          # с "Found incompatible module" ещё до установки.
           node-version: '18'
           cache: 'yarn'
 
@@ -43,7 +40,12 @@ jobs:
 
       - name: Install dependencies and build
         # prepare => build:package => vite build + vue-tsc --emitDeclarationOnly
-        run: yarn install --frozen-lockfile
+        #
+        # --ignore-engines: транзитивный @achrinza/node-ipc (через
+        # @vue/cli-shared-utils) объявляет engines до Node 17 или 18
+        # в зависимости от lock-файла, и yarn classic падает на этом
+        # ещё до установки. В сборке пакет не участвует.
+        run: yarn install --frozen-lockfile --ignore-engines
 
       - name: Type check
         # Информационный шаг: build:package запускает vue-tsc через
