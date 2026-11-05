@@ -1,9 +1,9 @@
-import { TFunction } from 'i18next';
+import { type TFunction } from 'i18next';
 
-import { ColumnDefinition } from '@tager/admin-ui';
+import { type ColumnDefinition } from '@tager/admin-ui';
 
-import { Banner, Status } from '../../../typings/banners';
-import { Zone } from '../../../typings/zones';
+import { type Banner, Status } from '../../../typings/banners';
+import { type Zone } from '../../../typings/zones';
 
 export function getStatus(type: Status, t: TFunction) {
   switch (type) {

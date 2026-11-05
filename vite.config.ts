@@ -22,6 +22,8 @@ export default defineConfig({
       entry: resolvePath("src/main.ts"),
       formats: ["es"],
       fileName: () => "index.mjs",
+      // vite >=4 называет CSS по имени либы, а exports["./css"] ждёт style.css
+      cssFileName: "style",
     },
     rollupOptions: {
       external: external,

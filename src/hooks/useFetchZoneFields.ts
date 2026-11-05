@@ -1,10 +1,10 @@
-import { computed, onMounted, Ref, SetupContext, watch } from 'vue';
+import { computed, onMounted, type Ref, type SetupContext, watch } from 'vue';
 
-import { Nullable, ResourceRef, useResource } from '@tager/admin-services';
+import { type Nullable, type ResourceRef, useResource } from '@tager/admin-services';
 
 import { getZoneFields } from '../services/requests';
-import { ZoneFields } from '../typings/zones';
-import { BannerFormValues } from '../typings/banners';
+import { type ZoneFields } from '../typings/zones';
+import { type BannerFormValues } from '../typings/banners';
 
 export function useFetchZoneFields({
   values,

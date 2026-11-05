@@ -1,9 +1,9 @@
-import { onMounted, SetupContext } from 'vue';
+import { onMounted, type SetupContext } from 'vue';
 
-import { ResourceRef, useResource } from '@tager/admin-services';
+import { type ResourceRef, useResource } from '@tager/admin-services';
 
 import { getBanners } from '../services/requests';
-import { Banner } from '../typings/banners';
+import { type Banner } from '../typings/banners';
 
 export function useFetchBanners(): ResourceRef<Banner[]> {
   const [fetchBanners, resource] = useResource<Banner[]>({

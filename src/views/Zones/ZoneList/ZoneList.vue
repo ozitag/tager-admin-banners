@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, SetupContext } from 'vue';
+import { computed, defineComponent, onMounted, type SetupContext } from 'vue';
 
 import { CountButton, useDataTable, DataTable } from '@tager/admin-ui';
 import { Page } from '@tager/admin-layout';
 import { useI18n } from '@tager/admin-services';
 
-import { Zone } from '../../../typings/zones';
+import { type Zone } from '../../../typings/zones';
 import { getZones } from '../../../services/requests';
 
 import { getColumnDefs, getLinkToBannersByZone } from './ZoneList.helpers';

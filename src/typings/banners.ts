@@ -1,10 +1,10 @@
-import { FileType, Nullable } from '@tager/admin-services';
-import { OptionType, SingleFileInputValueType } from '@tager/admin-ui';
+import { type FileType, type Nullable } from '@tager/admin-services';
+import { type OptionType, type SingleFileInputValueType } from '@tager/admin-ui';
 import {
-  FieldShortType,
-  FieldUnion,
-  IncomingValueUnion,
-  OutgoingValueUnion,
+  type FieldShortType,
+  type FieldUnion,
+  type IncomingValueUnion,
+  type OutgoingValueUnion,
 } from '@tager/admin-dynamic-field';
 
 export enum Status {

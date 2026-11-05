@@ -1,4 +1,4 @@
-import { FieldConfigUnion } from '@tager/admin-dynamic-field';
+import { type FieldConfigUnion } from '@tager/admin-dynamic-field';
 
 export interface Zone {
   id: string;

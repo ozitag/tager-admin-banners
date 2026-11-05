@@ -83,13 +83,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, SetupContext, watch } from 'vue';
+import { computed, defineComponent, type SetupContext, watch } from 'vue';
 import isEqual from 'lodash.isequal';
 import pick from 'lodash.pick';
 import { useRoute, useRouter } from 'vue-router';
 
 import {
-  ColumnDefinition,
+  type ColumnDefinition,
   useDataTable,
   DataTable,
   AdvancedSearch,
@@ -103,7 +103,7 @@ import { useI18n, useResourceDelete } from '@tager/admin-services';
 import { Page } from '@tager/admin-layout';
 
 import { deleteBanner, getBanners } from '../../../services/requests';
-import { Banner } from '../../../typings/banners';
+import { type Banner } from '../../../typings/banners';
 import { getBannersBannerFormUrl } from '../../../utils/paths';
 import { useFetchZones } from '../../../hooks';
 

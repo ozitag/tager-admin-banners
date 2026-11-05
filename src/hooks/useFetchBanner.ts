@@ -1,9 +1,9 @@
-import { onMounted, Ref, watch } from 'vue';
+import { onMounted, type Ref, watch } from 'vue';
 
-import { Nullable, ResourceRef, useResource } from '@tager/admin-services';
+import { type Nullable, type ResourceRef, useResource } from '@tager/admin-services';
 
 import { getBanner } from '../services/requests';
-import { Banner } from '../typings/banners';
+import { type Banner } from '../typings/banners';
 
 export function useFetchBanner({
   bannerId,

@@ -48,9 +48,8 @@ jobs:
         run: yarn install --frozen-lockfile --ignore-engines
 
       - name: Type check
-        # Информационный шаг: build:package запускает vue-tsc через
-        # `concurrently --success first`, поэтому ошибки типов там не видны.
-        # Пока не почищены — не блокирует релиз.
+        # Информационный шаг: осталось 2 ошибок типов, пока не блокируем релиз.
+        # build:package терпит их и всё равно генерирует .d.ts.
         continue-on-error: true
         run: yarn emit-declarations
 

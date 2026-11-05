@@ -8,7 +8,7 @@
     :is-content-loading="isContentLoading"
   >
     <template #content>
-      <form novalidate @submit.prevent="submitForm">
+      <form novalidate @submit.prevent>
         <div class="zone">
           <FormFieldSelect
             v-model:value="values.bannerZone"
@@ -79,7 +79,7 @@
 
         <DynamicField
           v-for="field of values.fields"
-          :key="field.name"
+          :key="field.id"
           :field="field"
         />
 
@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, SetupContext, watch } from 'vue';
+import { computed, defineComponent, ref, type SetupContext, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import {
@@ -116,8 +116,8 @@ import {
   FormFieldSelect,
   FormFooter,
   InputLabel,
-  OptionType,
-  TagerFormSubmitEvent,
+  type OptionType,
+  type TagerFormSubmitEvent,
 } from '@tager/admin-ui';
 import { DynamicField, universalFieldUtils } from '@tager/admin-dynamic-field';
 import {
@@ -129,7 +129,7 @@ import {
 import { Page } from '@tager/admin-layout';
 
 import { useFetchZones } from '../../../hooks';
-import { BannerFormValues } from '../../../typings/banners';
+import { type BannerFormValues } from '../../../typings/banners';
 import { useFetchBanner } from '../../../hooks/useFetchBanner';
 import {
   getBannersBannerFormUrl,

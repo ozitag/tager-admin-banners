@@ -12,7 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "preserveValueImports": true,
+    // preserveValueImports удалён в TS 5.5; verbatimModuleSyntax — его замена
+    "verbatimModuleSyntax": true,
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "dist",

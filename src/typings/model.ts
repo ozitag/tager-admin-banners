@@ -1,13 +1,13 @@
-import { Nullable, FileType } from '@tager/admin-services';
+import { type Nullable, type FileType } from '@tager/admin-services';
 import {
-  FieldConfigUnion,
-  FieldShortType,
-  IncomingValueUnion,
+  type FieldConfigUnion,
+  type FieldShortType,
+  type IncomingValueUnion,
 } from '@tager/admin-dynamic-field';
 import {
-  OptionType,
-  ShortCodeItemType,
-  SingleFileInputValueType,
+  type OptionType,
+  type ShortCodeItemType,
+  type SingleFileInputValueType,
 } from '@tager/admin-ui';
 
 export interface SeoInfo {

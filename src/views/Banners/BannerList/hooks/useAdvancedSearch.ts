@@ -1,17 +1,17 @@
-import { computed, ComputedRef, ref, Ref, SetupContext, watch } from 'vue';
-import { TFunction } from 'i18next';
-import { RouteLocationNormalizedLoaded } from 'vue-router';
+import { computed, type ComputedRef, ref, type Ref, type SetupContext, watch } from 'vue';
+import { type TFunction } from 'i18next';
+import { type RouteLocationNormalizedLoaded } from 'vue-router';
 
 import {
-  FilterTagType,
+  type FilterTagType,
   getFilterParamAsString,
   getFilterParamAsStringArray,
   getFilterParams,
-  OptionType,
+  type OptionType,
 } from '@tager/admin-ui';
 import { isNotNullish } from '@tager/admin-services';
 
-import { Zone } from '../../../../typings/zones';
+import { type Zone } from '../../../../typings/zones';
 import { Status } from '../../../../typings/banners';
 import { getStatus } from '../BannerList.helpers';
 

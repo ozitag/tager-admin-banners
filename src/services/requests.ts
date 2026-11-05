@@ -1,7 +1,7 @@
-import { request, ResponseBody } from '@tager/admin-services';
+import { request, type ResponseBody } from '@tager/admin-services';
 
-import { Zone, ZoneFields } from '../typings/zones';
-import { Banner, BannerPayload } from '../typings/banners';
+import { type Zone, type ZoneFields } from '../typings/zones';
+import { type Banner, type BannerPayload } from '../typings/banners';
 
 /** Zones **/
 

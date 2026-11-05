@@ -1,11 +1,11 @@
-import { OptionType } from '@tager/admin-ui';
-import { createId, Nullable } from '@tager/admin-services';
+import { type OptionType } from '@tager/admin-ui';
+import { createId, type Nullable } from '@tager/admin-services';
 import { universalFieldUtils } from '@tager/admin-dynamic-field';
 
 import {
-  Banner,
-  BannerFormValues,
-  BannerPayload,
+  type Banner,
+  type BannerFormValues,
+  type BannerPayload,
 } from '../../../typings/banners';
 
 export function convertBannerToFormValues(

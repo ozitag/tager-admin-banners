@@ -1,8 +1,8 @@
-import { TFunction } from 'i18next';
+import { type TFunction } from 'i18next';
 
-import { ColumnDefinition } from '@tager/admin-ui';
+import { type ColumnDefinition } from '@tager/admin-ui';
 
-import { Zone } from '../../../typings/zones';
+import { type Zone } from '../../../typings/zones';
 import { getBannersBannerListUrl } from '../../../utils/paths';
 
 export function getColumnDefs(t: TFunction): ColumnDefinition<Zone>[] {

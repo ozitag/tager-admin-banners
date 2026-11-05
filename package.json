@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build:js": "vite build",
-    "build:package": "concurrently --success first \"yarn build:js\" \"yarn emit-declarations\"",
+    "build:package": "yarn build:js && (yarn emit-declarations || echo 'vue-tsc: type errors found, declarations emitted anyway')",
     "emit-declarations": "vue-tsc --project tsconfig.json --emitDeclarationOnly",
     "start": "vue-cli-service serve",
     "prepare": "yarn build:package",
@@ -43,7 +43,7 @@
     "@types/node": "16.x",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-typescript": "^5.0.4",
     "@vue/cli-service": "~5.0.0",
@@ -59,11 +59,11 @@
     "pinia": "^2.0.21",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
-    "typescript": "^4.6.3",
-    "vite": "^2.9.6",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
-    "vue-tsc": "^0.34.10"
+    "vue-tsc": "^3.3.14"
   },
   "peerDependencies": {
     "@tager/admin-layout": "^1.0.0",
