@@ -18,7 +18,7 @@
     "build:js": "vite build",
     "build:package": "yarn build:js && (yarn emit-declarations || echo 'vue-tsc: type errors found, declarations emitted anyway')",
     "emit-declarations": "vue-tsc --project tsconfig.json --emitDeclarationOnly",
-    "start": "vue-cli-service serve",
+    "start": "vite",
     "prepare": "yarn build:package",
     "tager:update": "yarn upgrade --latest --scope @tager"
   },
@@ -30,8 +30,6 @@
     "path-to-regexp": "^6.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "@babel/eslint-parser": "^7.17.0",
     "@rushstack/eslint-patch": "^1.1.2",
     "@tager/admin-dynamic-field": "^1.0.0",
     "@tager/admin-layout": "^1.0.0",
@@ -44,12 +42,8 @@
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "@vitejs/plugin-vue": "^5.2.4",
-    "@vue/cli-plugin-babel": "^5.0.4",
-    "@vue/cli-plugin-typescript": "^5.0.4",
-    "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "concurrently": "^7.1.0",
     "core-js": "^3.22.3",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",

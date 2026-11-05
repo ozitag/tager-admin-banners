@@ -19,7 +19,8 @@
     "declarationDir": "dist",
     "skipLibCheck": true,
     "types": [
-      "webpack-env"
+      "vite/client",
+      "node"
     ],
     "lib": [
       "esnext",

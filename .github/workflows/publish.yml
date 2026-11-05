@@ -40,12 +40,7 @@ jobs:
 
       - name: Install dependencies and build
         # prepare => build:package => vite build + vue-tsc --emitDeclarationOnly
-        #
-        # --ignore-engines: транзитивный @achrinza/node-ipc (через
-        # @vue/cli-shared-utils) объявляет engines до Node 17 или 18
-        # в зависимости от lock-файла, и yarn classic падает на этом
-        # ещё до установки. В сборке пакет не участвует.
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: yarn install --frozen-lockfile
 
       - name: Type check
         # Информационный шаг: осталось 2 ошибок типов, пока не блокируем релиз.

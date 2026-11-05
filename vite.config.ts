@@ -15,8 +15,11 @@ const external = (id: string) =>
   !id.startsWith(".") && !path.isAbsolute(id) && !id.startsWith("plugin-vue:");
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  publicDir: false,
+export default defineConfig(({ command }) => ({
+  // public/ нужен dev-серверу playground, но не библиотечной сборке
+  publicDir: command === "build" ? false : "public",
+  // playground исторически читает VUE_APP_*; оставляем префикс рабочим
+  envPrefix: ["VITE_", "VUE_APP_"],
   build: {
     lib: {
       entry: resolvePath("src/main.ts"),
@@ -42,4 +45,4 @@ export default defineConfig({
       },
     ],
   },
-});
+}));
