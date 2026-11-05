@@ -1,27 +1,71 @@
 name: publish-package
+
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup node.js
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
         with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
-      - name: install dependecies
-        run: yarn
-      - name: publish
-        run: npm publish --access public
+          # 18 — верхняя граница engines у @achrinza/node-ipc (транзитивная
+          # зависимость @vue/cli-shared-utils). На Node 19+ yarn падает
+          # с "Found incompatible module" ещё до установки.
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Read package info
+        id: pkg
+        run: |
+          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Check if version is already published
+        id: check
+        run: |
+          if npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version > /dev/null 2>&1; then
+            echo "Версия ${{ steps.pkg.outputs.version }} уже в npm — публикация будет пропущена."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies and build
+        # prepare => build:package => vite build + vue-tsc --emitDeclarationOnly
+        run: yarn install --frozen-lockfile
+
+      - name: Type check
+        # Информационный шаг: build:package запускает vue-tsc через
+        # `concurrently --success first`, поэтому ошибки типов там не видны.
+        # Пока не почищены — не блокирует релиз.
+        continue-on-error: true
+        run: yarn emit-declarations
+
+      - name: Publish to npm
+        # registry-url у setup-node намеренно не задан: он пишет .npmrc
+        # с плейсхолдером ${NODE_AUTH_TOKEN}, а setup-node@v7 больше не
+        # экспортирует заглушку — из-за этого падает yarn. Пишем .npmrc
+        # здесь, чтобы токен не был виден шагам сборки.
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> "$HOME/.npmrc"
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: create and push tag
+
+      - name: Create and push tag
+        if: steps.check.outputs.exists == 'false'
         run: |
-          PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')
-          git tag v$PACKAGE_VERSION
-          git push --tags
+          git tag "v${{ steps.pkg.outputs.version }}"
+          git push origin "v${{ steps.pkg.outputs.version }}"
