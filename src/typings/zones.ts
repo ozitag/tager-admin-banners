@@ -1,6 +1,6 @@
 import { type FieldConfigUnion } from '@tager/admin-dynamic-field';
 
-export interface Zone {
+export type Zone = {
   id: string;
   name: string;
   bannersCount: number;

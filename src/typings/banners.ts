@@ -14,7 +14,7 @@ export enum Status {
   Disabled = 'DISABLED',
 }
 
-export interface Banner {
+export type Banner = {
   id: number;
   status: Status;
   priority: number;

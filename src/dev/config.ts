@@ -16,7 +16,6 @@ export const OZITAG_CONFIG: AppConfigType = {
     subtitle: '',
   },
   SPLASH_SCREEN: {
-    enabled: true,
     logo: 'logo-white.svg',
     background: '#1e1e1e',
   },
